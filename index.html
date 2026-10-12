@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f3ea">
+  <meta name="description" content="Make a hilariously personal web development bingo card with your own photo.">
+  <title>Bug Bingo — Make a card. Roast your class.</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Bug Bingo home">
+      <span class="brand-mark" aria-hidden="true">B!</span>
+      <span>bug<span class="brand-light">bingo</span><small>THE CLASSROOM EDITION</small></span>
+    </a>
+    <div class="header-note"><span class="live-dot"></span> 100% class-safe(ish) <span class="header-sparkle">✳</span></div>
+  </header>
+
+  <main id="top" class="app-shell">
+    <section class="intro">
+      <div class="eyebrow"><span>✦</span> YOUR CLASS. YOUR INSIDE JOKES. YOUR BINGO.</div>
+      <h1>Make a card.<br><span>Roast your class.</span></h1>
+      <p>Drop in a photo, shuffle the web-dev lingo, and catch your classmates saying “wait, why is my CSS not working?” for the 400th time.</p>
+      <div class="intro-sticker" aria-hidden="true"><span>404</span><small>FUNNY<br>NOT FOUND?</small></div>
+    </section>
+
+    <div class="workspace">
+      <aside class="control-panel" aria-label="Bingo card settings">
+        <div class="panel-heading">
+          <div><span class="step-label">THE CONTROL ROOM</span><h2>Make it yours <span aria-hidden="true">🛠️</span></h2></div>
+          <span class="panel-count">01—04</span>
+        </div>
+
+        <section class="control-group">
+          <div class="group-title"><span class="number-badge">01</span><div><h3>Pick your vibe</h3><p>One click, whole new personality.</p></div></div>
+          <label class="sr-only" for="themeSelect">Theme preset</label>
+          <select id="themeSelect" class="select-control">
+            <option value="meme">😂 Meme Mode</option>
+            <option value="dark">🌑 Dark Developer</option>
+            <option value="neon">💚 Neon Coding</option>
+            <option value="classic">🎱 Classic Bingo</option>
+          </select>
+          <label class="field-label" for="cardTitle">Card headline</label>
+          <input id="cardTitle" class="text-control" type="text" maxlength="52" value="WEB DEV CLASS BINGO" placeholder="Give your card a title">
+          <div class="two-column header-fields">
+            <div><label class="field-label" for="topLabel">Top label</label><input id="topLabel" class="text-control" type="text" maxlength="80" value="THE CLASSROOM EDITION" placeholder="Small card label"></div>
+            <div><label class="field-label" for="cornerMark">Corner mark</label><input id="cornerMark" class="text-control" type="text" maxlength="5" value="&lt;/&gt;" placeholder="e.g. ✦"></div>
+          </div>
+          <div class="range-row"><label for="topLabelSize">Top label size</label><output id="topLabelSizeValue" for="topLabelSize">100%</output></div>
+          <input id="topLabelSize" class="range-control" type="range" min="60" max="150" value="100">
+          <div class="two-column header-fields">
+            <div><label class="field-label" for="titleAlignment">Headline alignment</label><select id="titleAlignment" class="select-control small-select"><option value="center">Centered</option><option value="left">Left</option><option value="right">Right</option></select></div>
+            <div><div class="range-row"><label for="titleSize">Headline size</label><output id="titleSizeValue" for="titleSize">100%</output></div><input id="titleSize" class="range-control" type="range" min="75" max="125" value="100"></div>
+          </div>
+          <div class="two-column headline-style-controls">
+            <div><label class="field-label" for="headlineColor">Headline color</label><label class="color-picker"><input id="headlineColor" type="color" value="#25231f"><span id="headlineColorHex">#25231F</span></label></div>
+            <div><label class="field-label" for="headlineOutlineColor">Outline color</label><label class="color-picker"><input id="headlineOutlineColor" type="color" value="#ff5d4f"><span id="headlineOutlineHex">#FF5D4F</span></label></div>
+          </div>
+          <div class="range-row"><label for="headlineOutlineWidth">Headline outline</label><output id="headlineOutlineWidthValue" for="headlineOutlineWidth">0 px</output></div>
+          <input id="headlineOutlineWidth" class="range-control" type="range" min="0" max="4" value="0">
+          <button id="resetHeadlineStyle" class="text-button headline-style-reset" type="button">Use theme headline style <span aria-hidden="true">×</span></button>
+        </section>
+
+        <section class="control-group">
+          <div class="group-title"><span class="number-badge">02</span><div><h3>Set the scene</h3><p>A little photo, a lot of personality.</p></div></div>
+          <label class="upload-button" for="photoUpload"><span class="upload-icon">＋</span><span><strong>Upload a funny photo</strong><small>JPG, PNG, GIF or WebP · stays on your device</small></span></label>
+          <input id="photoUpload" class="sr-only" type="file" accept="image/*">
+          <button id="removePhoto" class="text-button" type="button" hidden>Remove photo <span aria-hidden="true">×</span></button>
+          <label class="upload-button free-upload" for="freeSpaceUpload"><span class="upload-icon">✳</span><span><strong>Add a Free Space image</strong><small>Show what your class is playing for!</small></span></label>
+          <input id="freeSpaceUpload" class="sr-only" type="file" accept="image/*">
+          <button id="removeFreeSpacePhoto" class="text-button" type="button" hidden>Remove Free Space image <span aria-hidden="true">×</span></button>
+          <div class="range-row"><label for="freeSpaceOpacity">Free Space image strength</label><output id="freeSpaceOpacityValue" for="freeSpaceOpacity">100%</output></div>
+          <input id="freeSpaceOpacity" class="range-control" type="range" min="0" max="100" value="100">
+          <div class="range-row"><label for="photoOpacity">Photo strength</label><output id="opacityValue" for="photoOpacity">18%</output></div>
+          <input id="photoOpacity" class="range-control" type="range" min="0" max="100" value="18">
+          <div class="range-row"><label for="photoBlur">Background blur</label><output id="blurValue" for="photoBlur">2 px</output></div>
+          <input id="photoBlur" class="range-control" type="range" min="0" max="12" value="2">
+          <div class="range-row"><label for="photoX">Photo position · left / right</label><output id="photoXValue" for="photoX">50%</output></div>
+          <input id="photoX" class="range-control" type="range" min="0" max="100" value="50">
+          <div class="range-row"><label for="photoY">Photo position · top / bottom</label><output id="photoYValue" for="photoY">50%</output></div>
+          <input id="photoY" class="range-control" type="range" min="0" max="100" value="50">
+        </section>
+
+        <section class="control-group compact-group">
+          <div class="group-title"><span class="number-badge">03</span><div><h3>Fine-tune the card</h3><p>Make it pop. Keep it readable.</p></div></div>
+          <div class="two-column">
+            <div><label class="field-label" for="accentColor">Accent color</label><label class="color-picker"><input id="accentColor" type="color" value="#ff5d4f"><span id="accentHex">#FF5D4F</span></label></div>
+            <div><label class="field-label" for="fontSelect">Type style</label><select id="fontSelect" class="select-control small-select"><option value="comic">Comic bold</option><option value="clean">Clean sans</option><option value="mono">Code mono</option><option value="serif">Retro serif</option><option value="marker">Marker</option><option value="display">Bold display</option><option value="condensed">Condensed</option><option value="editorial">Editorial serif</option></select></div>
+          </div>
+          <div class="two-column settings-row">
+            <div><label class="field-label" for="gridStyle">Grid style</label><select id="gridStyle" class="select-control small-select"><option value="solid">Solid lines</option><option value="dashed">Dashed lines</option><option value="rounded">Rounded cells</option><option value="double">Double lines</option></select></div>
+            <div><label class="field-label" for="paperSize">Print layout</label><select id="paperSize" class="select-control small-select"><option value="letter">US Letter</option><option value="square">8 × 8 inch</option></select></div>
+          </div>
+          <div class="range-row"><label for="boxOpacity">Square box opacity</label><output id="boxOpacityValue" for="boxOpacity">85%</output></div>
+          <input id="boxOpacity" class="range-control" type="range" min="0" max="100" value="85">
+          <div class="header-design-controls">
+            <div class="header-background-control">
+              <div><label class="field-label" for="headerBackground">Top area background</label><label class="color-picker"><input id="headerBackground" type="color" value="#fffdf8"><span id="headerBackgroundHex">AUTO</span></label></div>
+              <button id="clearHeaderBackground" class="text-button" type="button">Use theme background <span aria-hidden="true">×</span></button>
+            </div>
+            <label class="field-label bingo-colors-label">BINGO letter backgrounds</label>
+            <div class="bingo-letter-pickers">
+              <div><label class="field-label" for="letterColorB">B</label><label class="color-picker bingo-color-picker"><input id="letterColorB" type="color" value="#ff5d4f" aria-label="B letter background color"></label></div>
+              <div><label class="field-label" for="letterColorI">I</label><label class="color-picker bingo-color-picker"><input id="letterColorI" type="color" value="#ff5d4f" aria-label="I letter background color"></label></div>
+              <div><label class="field-label" for="letterColorN">N</label><label class="color-picker bingo-color-picker"><input id="letterColorN" type="color" value="#ff5d4f" aria-label="N letter background color"></label></div>
+              <div><label class="field-label" for="letterColorG">G</label><label class="color-picker bingo-color-picker"><input id="letterColorG" type="color" value="#ff5d4f" aria-label="G letter background color"></label></div>
+              <div><label class="field-label" for="letterColorO">O</label><label class="color-picker bingo-color-picker"><input id="letterColorO" type="color" value="#ff5d4f" aria-label="O letter background color"></label></div>
+            </div>
+            <div class="two-column bingo-letter-style-controls">
+              <div><label class="field-label" for="letterOutlineStyle">Letter outline</label><select id="letterOutlineStyle" class="select-control small-select"><option value="none">None</option><option value="solid">Solid</option><option value="dashed">Dashed</option><option value="double">Double</option></select></div>
+              <div><label class="field-label" for="letterFont">Letter font</label><select id="letterFont" class="select-control small-select"><option value="card">Match card</option><option value="comic">Comic bold</option><option value="clean">Clean sans</option><option value="mono">Code mono</option><option value="serif">Retro serif</option><option value="marker">Marker</option><option value="display">Bold display</option><option value="condensed">Condensed</option><option value="editorial">Editorial serif</option></select></div>
+              <div><label class="field-label" for="letterOutlineColor">Outline color</label><label class="color-picker bingo-outline-picker"><input id="letterOutlineColor" type="color" value="#25231f"><span id="letterOutlineHex">#25231F</span></label></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="control-group design-group">
+          <div class="group-title"><span class="number-badge">04</span><div><h3>Drag on decorations</h3><p>Click to add, then drag them around the card.</p></div></div>
+          <div class="sticker-tray" aria-label="Draggable card decorations">
+            <button class="sticker-tool" type="button" draggable="true" data-sticker="😂" aria-label="Add laughing emoji">😂</button>
+            <button class="sticker-tool" type="button" draggable="true" data-sticker="💀" aria-label="Add skull emoji">💀</button>
+            <button class="sticker-tool" type="button" draggable="true" data-sticker="✨" aria-label="Add sparkle">✨</button>
+            <button class="sticker-tool" type="button" draggable="true" data-sticker="🚀" aria-label="Add rocket">🚀</button>
+            <button class="sticker-tool" type="button" draggable="true" data-sticker="🐛" aria-label="Add bug emoji">🐛</button>
+            <button class="sticker-tool" type="button" draggable="true" data-sticker="💻" aria-label="Add laptop emoji">💻</button>
+            <button class="sticker-tool" type="button" draggable="true" data-sticker="🧑‍💻" aria-label="Add developer emoji">🧑‍💻</button>
+            <button class="sticker-tool" type="button" draggable="true" data-sticker="☕" aria-label="Add coffee emoji">☕</button>
+            <button class="sticker-tool sticker-caption" type="button" draggable="true" data-sticker="caption:OMG" aria-label="Add a caption sticker">OMG</button>
+            <button id="addCaption" class="sticker-tool sticker-add" type="button" aria-label="Write a custom caption">＋</button>
+          </div>
+          <div class="design-actions"><label class="design-size-label" for="stickerSize">Sticker size</label><input id="stickerSize" class="range-control" type="range" min="20" max="100" value="46" disabled><button id="deleteSticker" class="text-button" type="button" disabled>Delete selected <span aria-hidden="true">×</span></button></div>
+          <div class="sticker-style-row"><label class="field-label" for="stickerBorder">Sticker border</label><select id="stickerBorder" class="select-control small-select"><option value="default">Original style</option><option value="bold">Bold black</option><option value="accent">Accent dashed</option><option value="white">White outline</option><option value="none">No border or shadow</option></select></div>
+          <div class="two-column sticker-color-row">
+            <div><label class="field-label" for="stickerBackground">Background color</label><label class="color-picker"><input id="stickerBackground" type="color" value="#ffffff"><span id="stickerBackgroundHex">#FFFFFF</span></label></div>
+            <div><label class="field-label" for="stickerTextColor">Text color</label><label class="color-picker"><input id="stickerTextColor" type="color" value="#25231f"><span id="stickerTextHex">#25231F</span></label></div>
+            <div><label class="field-label" for="stickerBorderColor">Border color</label><label class="color-picker"><input id="stickerBorderColor" type="color" value="#25231f"><span id="stickerBorderHex">#25231F</span></label></div>
+          </div>
+          <label class="sticker-background-toggle"><input id="stickerNoBackground" type="checkbox"><span>Transparent background</span></label>
+          <label class="caption-editor-label" for="stickerText">Selected caption</label>
+          <input id="stickerText" class="text-control caption-editor" type="text" maxlength="32" placeholder="Select a caption sticker to edit" disabled>
+        </section>
+
+        <div class="action-row">
+          <button id="shuffleButton" class="button button-secondary" type="button"><span aria-hidden="true">⤨</span> Shuffle squares</button>
+          <button id="printButton" class="button button-primary" type="button"><span aria-hidden="true">↗</span> Print / Save PDF</button>
+        </div>
+        <p class="helper-note"><span aria-hidden="true">✎</span> Tip: click a square to edit it. You can change or clear the center text, and it will stay in the middle.</p>
+      </aside>
+
+      <section class="preview-column" aria-label="Live bingo card preview">
+        <div class="preview-toolbar"><div><span class="preview-live"><i></i> LIVE PREVIEW</span><h2>Your masterpiece</h2></div><div class="preview-meta"><span class="edit-hint">✎ click a square to edit</span><span class="preview-count">25 squares · 1 freebie</span></div></div>
+        <div class="card-stage">
+          <article id="bingoCard" class="bingo-card theme-meme grid-solid font-comic size-letter" aria-label="Editable web development bingo card">
+            <div class="photo-layer" aria-hidden="true"></div>
+            <div class="card-content">
+              <div id="cardHeader" class="card-header">
+                <div class="card-topline"><span id="previewTopLabel" class="mini-stamp">THE CLASSROOM EDITION</span><span id="previewCornerMark" class="card-doodle" aria-hidden="true">&lt;/&gt;</span></div>
+                <h2 id="previewTitle" class="card-title">WEB DEV CLASS BINGO</h2>
+                <div class="bingo-letters" aria-hidden="true"><span>B</span><span>I</span><span>N</span><span>G</span><span>O</span></div>
+              </div>
+              <div id="bingoGrid" class="bingo-grid" role="grid" aria-label="Bingo squares"></div>
+              <div class="card-footer"><span>IF IT WORKS, DON'T TOUCH IT.</span><span class="footer-issue">ISSUE #001 · EST. TODAY</span></div>
+              <div id="designLayer" class="design-layer" aria-label="Card decoration drop area"></div>
+            </div>
+          </article>
+        </div>
+        <div class="below-preview"><span>✦ <strong>100% personalized</strong>, 0% backend required.</span><span class="print-tip">Print tip: choose “Save as PDF” in your print dialog.</span></div>
+      </section>
+    </div>
+    <footer class="site-footer"><span>MADE WITH <span class="heart">♥</span> &amp; QUESTIONABLE SEMICOLON HABITS</span><span>NO PHOTO EVER LEAVES YOUR DEVICE <span aria-hidden="true">🔒</span></span></footer>
+  </main>
+</body>
+</html>
