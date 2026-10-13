@@ -153,6 +153,7 @@ function updateHeaderDesign() {
   previewTitle.style.textAlign = titleAlignmentInput.value;
 
   const scale = Number(titleSizeInput.value) / 100;
+  previewTitle.style.setProperty('--print-title-scale', String(scale));
   const isMobile = window.matchMedia('(max-width: 700px)').matches;
   const isSmallMobile = window.matchMedia('(max-width: 420px)').matches;
   const minimum = (isMobile ? 21 : 20) * scale;
@@ -162,6 +163,7 @@ function updateHeaderDesign() {
   document.querySelector('#titleSizeValue').value = `${titleSizeInput.value}%`;
 
   const labelScale = Number(topLabelSizeInput.value) / 100;
+  previewTopLabel.style.setProperty('--print-label-scale', String(labelScale));
   const labelMaximum = (isSmallMobile ? 6 : isMobile ? 7 : 9) * labelScale;
   const labelFluid = (isMobile ? 1.4 : .74) * labelScale;
   previewTopLabel.style.fontSize = `clamp(${6 * labelScale}px, ${labelFluid}vw, ${labelMaximum}px)`;

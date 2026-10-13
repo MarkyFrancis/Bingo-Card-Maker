@@ -259,8 +259,8 @@ button, select, input[type="range"], input[type="color"] { cursor: pointer; }
   .editable-footer:focus { outline: none; }
   .bingo-cell { font-size: 15pt; }
   .bingo-letters span { font-size: 22pt; }
-  .card-title { font-size: 34pt; }
-  .mini-stamp { font-size: 8pt; }
+  .card-title { font-size: calc(34pt * var(--print-title-scale, 1)) !important; }
+  .mini-stamp { font-size: calc(8pt * var(--print-label-scale, 1)) !important; }
   .card-footer { font-size: 7pt; }
   .theme-dark, .theme-neon { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 }
