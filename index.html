@@ -91,7 +91,7 @@
           </div>
           <div class="two-column settings-row">
             <div><label class="field-label" for="gridStyle">Grid style</label><select id="gridStyle" class="select-control small-select"><option value="solid">Solid lines</option><option value="dashed">Dashed lines</option><option value="rounded">Rounded cells</option><option value="double">Double lines</option></select></div>
-            <div><label class="field-label" for="paperSize">Print layout</label><select id="paperSize" class="select-control small-select"><option value="letter">US Letter</option><option value="square">8 × 8 inch</option></select></div>
+            <div><label class="field-label" for="paperSize">Print layout</label><select id="paperSize" class="select-control small-select"><option value="letter">US Letter</option><option value="square">8 × 8 inch</option><option value="8x11">8 × 11 inch</option></select></div>
           </div>
           <div class="range-row"><label for="boxOpacity">Square box opacity</label><output id="boxOpacityValue" for="boxOpacity">85%</output></div>
           <input id="boxOpacity" class="range-control" type="range" min="0" max="100" value="85">
@@ -131,6 +131,8 @@
             <button id="addCaption" class="sticker-tool sticker-add" type="button" aria-label="Write a custom caption">＋</button>
           </div>
           <div class="design-actions"><label class="design-size-label" for="stickerSize">Sticker size</label><input id="stickerSize" class="range-control" type="range" min="20" max="100" value="46" disabled><button id="deleteSticker" class="text-button" type="button" disabled>Delete selected <span aria-hidden="true">×</span></button></div>
+          <div class="range-row"><label for="stickerRotation">Sticker rotation</label><output id="stickerRotationValue" for="stickerRotation">0°</output></div>
+          <input id="stickerRotation" class="range-control" type="range" min="-180" max="180" value="0" disabled>
           <div class="sticker-style-row"><label class="field-label" for="stickerBorder">Sticker border</label><select id="stickerBorder" class="select-control small-select"><option value="default">Original style</option><option value="bold">Bold black</option><option value="accent">Accent dashed</option><option value="white">White outline</option><option value="none">No border or shadow</option></select></div>
           <div class="two-column sticker-color-row">
             <div><label class="field-label" for="stickerBackground">Background color</label><label class="color-picker"><input id="stickerBackground" type="color" value="#ffffff"><span id="stickerBackgroundHex">#FFFFFF</span></label></div>
@@ -161,7 +163,7 @@
                 <div class="bingo-letters" aria-hidden="true"><span>B</span><span>I</span><span>N</span><span>G</span><span>O</span></div>
               </div>
               <div id="bingoGrid" class="bingo-grid" role="grid" aria-label="Bingo squares"></div>
-              <div class="card-footer"><span>IF IT WORKS, DON'T TOUCH IT.</span><span class="footer-issue">ISSUE #001 · EST. TODAY</span></div>
+              <div class="card-footer"><span class="editable-footer" contenteditable="true" role="textbox" aria-label="Editable card footer message" aria-multiline="false" spellcheck="false">IF IT WORKS, DON'T TOUCH IT.</span><span class="footer-issue editable-footer" contenteditable="true" role="textbox" aria-label="Editable card issue label" aria-multiline="false" spellcheck="false">ISSUE #001 · EST. TODAY</span></div>
               <div id="designLayer" class="design-layer" aria-label="Card decoration drop area"></div>
             </div>
           </article>

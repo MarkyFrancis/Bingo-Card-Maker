@@ -47,6 +47,7 @@ const removeFreeSpacePhotoButton = document.querySelector('#removeFreeSpacePhoto
 const freeSpaceOpacityInput = document.querySelector('#freeSpaceOpacity');
 const designLayer = document.querySelector('#designLayer');
 const stickerSizeInput = document.querySelector('#stickerSize');
+const stickerRotationInput = document.querySelector('#stickerRotation');
 const stickerBorderInput = document.querySelector('#stickerBorder');
 const stickerBackgroundInput = document.querySelector('#stickerBackground');
 const stickerNoBackgroundInput = document.querySelector('#stickerNoBackground');
@@ -266,8 +267,9 @@ function updateCardStyle() {
   card.classList.add(`font-${fontSelect.value}`);
   card.classList.remove('grid-solid', 'grid-dashed', 'grid-rounded', 'grid-double');
   card.classList.add(`grid-${gridSelect.value}`);
-  card.classList.remove('size-letter', 'size-square');
-  card.classList.add(paperSize.value === 'square' ? 'size-square' : 'size-letter');
+  card.classList.remove('size-letter', 'size-square', 'size-8x11');
+  const cardSizeClass = { letter: 'size-letter', square: 'size-square', '8x11': 'size-8x11' }[paperSize.value] || 'size-letter';
+  card.classList.add(cardSizeClass);
   updateBoxOpacity();
 }
 
@@ -321,6 +323,13 @@ function updateStickerSize(sticker, size) {
   sticker.style.setProperty('--sticker-size', `${type === 'caption' ? Math.max(12, Math.round(size * 0.36)) : size}px`);
 }
 
+function updateStickerRotation(sticker, rotation) {
+  const angle = Math.max(-180, Math.min(180, Number(rotation)));
+  sticker.dataset.rotation = String(angle);
+  sticker.style.setProperty('--sticker-rotation', `${angle}deg`);
+  document.querySelector('#stickerRotationValue').value = `${angle}°`;
+}
+
 function updateStickerBorder(sticker, style) {
   sticker.classList.remove('sticker-border-default', 'sticker-border-bold', 'sticker-border-accent', 'sticker-border-white', 'sticker-border-none');
   sticker.classList.add(`sticker-border-${style}`);
@@ -363,8 +372,10 @@ function selectSticker(sticker) {
   if (sticker) {
     sticker.classList.add('is-selected');
     stickerSizeInput.disabled = false;
+    stickerRotationInput.disabled = false;
     deleteStickerButton.disabled = false;
     stickerSizeInput.value = sticker.dataset.size || '46';
+    updateStickerRotation(sticker, sticker.dataset.rotation || 0);
     stickerBorderInput.value = sticker.dataset.border || 'default';
     stickerBackgroundInput.value = sticker.dataset.background || '#ffffff';
     stickerBackgroundTransparent = sticker.dataset.backgroundTransparent === 'true';
@@ -382,6 +393,7 @@ function selectSticker(sticker) {
     stickerTextInput.placeholder = isCaption ? 'Edit this sticker caption' : 'Select a caption sticker to edit';
   } else {
     stickerSizeInput.disabled = true;
+    stickerRotationInput.disabled = true;
     deleteStickerButton.disabled = true;
     stickerBackgroundInput.disabled = stickerBackgroundTransparent;
     stickerTextInput.disabled = true;
@@ -412,7 +424,8 @@ function createSticker(value, x = 50, y = 50) {
   updateStickerSize(sticker, initialSize);
   sticker.style.setProperty('--sticker-x', `${x}%`);
   sticker.style.setProperty('--sticker-y', `${y}%`);
-  sticker.style.setProperty('--sticker-rotation', `${(stickerCount++ % 2 ? 1 : -1) * (4 + Math.random() * 6)}deg`);
+  const initialRotation = Math.round((stickerCount++ % 2 ? 1 : -1) * (4 + Math.random() * 6));
+  updateStickerRotation(sticker, initialRotation);
 
   sticker.addEventListener('pointerdown', (event) => {
     if (event.button !== 0) return;
@@ -489,6 +502,9 @@ document.querySelector('#addCaption').addEventListener('click', () => createStic
 stickerSizeInput.addEventListener('input', () => {
   if (selectedSticker) updateStickerSize(selectedSticker, Number(stickerSizeInput.value));
 });
+stickerRotationInput.addEventListener('input', () => {
+  if (selectedSticker) updateStickerRotation(selectedSticker, stickerRotationInput.value);
+});
 stickerBorderInput.addEventListener('change', () => {
   if (!selectedSticker) return;
   updateStickerBorder(selectedSticker, stickerBorderInput.value);
@@ -539,6 +555,18 @@ document.addEventListener('keydown', (event) => {
 });
 designLayer.addEventListener('pointerdown', (event) => {
   if (event.target === designLayer) selectSticker(null);
+});
+
+document.querySelectorAll('.editable-footer').forEach((label) => {
+  label.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    label.blur();
+  });
+  label.addEventListener('input', () => {
+    const text = label.innerText.trim();
+    label.setAttribute('aria-label', `Editable card footer text: ${text || 'blank'}`);
+  });
 });
 
 titleInput.addEventListener('input', updateTitle);
